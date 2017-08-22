@@ -11,7 +11,6 @@ Module.register("MMM-send_emotion", {
 	defaults: {
 		updateInterval: 3000,
 		retryDelay: 5000,
-		switchInterval: 3000,
 		initialLoadDelay: 0
 	},
 
@@ -21,7 +20,7 @@ Module.register("MMM-send_emotion", {
 	start: function() {
                 var self = this;
 		Log.info('Starting module: ' + this.name);
-		this.scheduleUpdate(this.config.initialLoadDelay);
+		this.scheduleUpdate(this.config.updateInterval);
 
 		//Flag for check if module is loaded
 		this.loaded = false;
@@ -34,12 +33,13 @@ Module.register("MMM-send_emotion", {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
+			Log.log("in if statement in scheduleupdate"+nextLoad);
 		}
 
 		setInterval(function() {
 			var emotional_array = ['happy','sad','hello','fear','disappointed','mellow','listening','thumbs_up'];
-			//self.sendNotification("New_Emotion", emotional_array[0]);
 			self.change_emotion();
+			Log.log("in if statement in setInterval"+nextLoad);
 			}, nextLoad);
 		},
 	change_emotion: function(){
@@ -47,7 +47,6 @@ Module.register("MMM-send_emotion", {
 		var emotional_array = ['happy','sad','hello','fear','disappointed','mellow','listening','thumbs_up'];
 		var emote_index = Math.floor(Math.random()*emotional_array.length);
 		var emote = emotional_array[emote_index];
-		//Log.log(emote);
 		self.sendNotification("change_emotion", emote);
 		}	
 });
