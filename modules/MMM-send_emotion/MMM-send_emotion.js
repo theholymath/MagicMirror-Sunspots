@@ -37,14 +37,17 @@ Module.register("MMM-send_emotion", {
 		}
 
 		setInterval(function() {
-			var emotional_array = ['happy','sad','smiling','fear','disappointed','mellow','cheerful','anxious'];
-			self.sendNotification("New_Emotion", "anger");
+			var emotional_array = ['happy','sad','hello','fear','disappointed','mellow','listening','thumbs_up'];
+			//self.sendNotification("New_Emotion", emotional_array[0]);
 			self.change_emotion();
 			}, nextLoad);
 		},
 	change_emotion: function(){
 		var self = this;
-		var emotional_array = ['happy','sad','smiling','fear','disappointed','mellow','cheerful','anxious'];
-		self.sendNotification("In_change_emotion", "anger");
+		var emotional_array = ['happy','sad','hello','fear','disappointed','mellow','listening','thumbs_up'];
+		var emote_index = Math.floor(Math.random()*emotional_array.length);
+		var emote = emotional_array[emote_index];
+		//Log.log(emote);
+		self.sendNotification("change_emotion", emote);
 		}	
 });
